@@ -9,10 +9,14 @@ const throttledOnFeedbackFormInput = throttle(onFeedbackFormInput, 500);
 let formState = {};
 
 if (localStorage[STORAGE_FEEDBACK_FORM_STATE]) {
-  formState = JSON.parse(localStorage[STORAGE_FEEDBACK_FORM_STATE]);
-  //   if (formState.email) refs.email.value = formState.email;
+  try {
+    formState = JSON.parse(localStorage[STORAGE_FEEDBACK_FORM_STATE]);
+  } catch {
+    formState.email = '';
+    formState.message = '';
+  }
   refs.email.value = formState.email ? formState.email : '';
-  //   if (formState.message) refs.message.value = formState.message;
+
   refs.message.value = formState.message ? formState.message : '';
 }
 
